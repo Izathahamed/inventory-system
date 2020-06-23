@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.product.exception.ProductNotFoundException;
 import com.example.product.model.Product;
 import com.example.product.repository.ProductRepository;
 
@@ -19,13 +20,11 @@ public class ProductService {
 		return repository.save(product);
 	}
 	
-	public List<Product> saveAllProduct(List<Product> products){
-		return repository.saveAll(products);
-	}
-	
+		
 //	Get Product
-	public Product getById(int id) {
-		return repository.findById(id).orElse(null);
+	public Product getById(int id)  {
+		return repository.findById(id)
+				.orElseThrow(() -> new ProductNotFoundException("Id not exists"));
 	}
 	
 	public List<Product> getAllProducts(){
@@ -39,7 +38,8 @@ public class ProductService {
 	}
 //	 Update Product 
 	public Product updateProduct(Product product) {
-		Product existing=repository.findById(product.getId()).orElse(null);
+		Product existing=repository.findById(product.getId())
+				.orElseThrow(() -> new ProductNotFoundException("Id not exists"));
 		existing.setName(product.getName());
 		existing.setQuantity(product.getQuantity());
 		existing.setPrice(product.getPrice());

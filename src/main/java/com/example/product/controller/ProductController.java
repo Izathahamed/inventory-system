@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.product.exception.ProductNotFoundException;
 import com.example.product.model.Product;
 import com.example.product.service.ProductService;
 
@@ -27,13 +28,10 @@ public class ProductController {
 		return service.saveProduct(product);
 	}
 	
-	@PostMapping("/addAll")
-	public List<Product> addAll(@RequestBody List<Product> products) {
-		return service.saveAllProduct(products);
-	}
+	
 	
 	@GetMapping("/{id}")
-	public Product findById(@PathVariable int id) {
+	public Product findById(@PathVariable int id) throws ProductNotFoundException {
 		return service.getById(id);
 	}
 	
