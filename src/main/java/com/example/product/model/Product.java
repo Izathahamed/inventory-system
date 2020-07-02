@@ -13,13 +13,13 @@ public class Product {
 	@Id
 	@GeneratedValue
 	private int id;
-	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	private String name;
 	private int quantity;
 	private double price;
+	public Product() {
+		super();
+		
+	}
 	
 	public Product(int id, String name, int quantity, double price) {
 		super();
